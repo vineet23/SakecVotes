@@ -99,9 +99,12 @@ public class MyPollsFragment extends Fragment {
                                                     if(documentSnapshot.exists()) {
                                                         polls.add(documentSnapshot.toObject(Poll.class));
                                                         adapter.update(polls);
+                                                        materialCardView.setVisibility(View.GONE);
+                                                    }else{
+                                                        if (polls.size()==0)
+                                                            materialCardView.setVisibility(View.VISIBLE);
                                                     }
-                                                    if (polls.size()==0)
-                                                        materialCardView.setVisibility(View.VISIBLE);
+
                                                 }
                                             });
                                 }
