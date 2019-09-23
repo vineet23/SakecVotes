@@ -45,7 +45,7 @@ public class WebActivity extends AppCompatActivity {
             }
         });
 
-        myWebView.loadUrl("https://www.somaiya.edu/");
+        myWebView.loadUrl("http://www.shahandanchor.com/home/");
 
     }
 

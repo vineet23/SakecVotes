@@ -74,7 +74,7 @@ public class SettingsFragment extends Fragment {
         progressBar = view.findViewById(R.id.progressBar);
         progressBar.setVisibility(View.GONE);
 
-        if(!MainActivity.email.equals("prince.m@somaiya.edu"))
+        if(!MainActivity.email.equals("vineet.patel@sakec.ac.in"))
         {
             adminCard.setVisibility(View.GONE);
             EmailCard.setVisibility(View.GONE);
@@ -152,7 +152,7 @@ public class SettingsFragment extends Fragment {
         final String email = mail.getText().toString().trim();
         db = FirebaseFirestore.getInstance();
         progressBar.setVisibility(View.VISIBLE);
-        if (email.endsWith("somaiya.edu") && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+        if (email.endsWith("sakec.ac.in") && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
 
             db.collection("auth")
                     .whereEqualTo("user", email)
@@ -203,7 +203,7 @@ public class SettingsFragment extends Fragment {
         final String email = mail.getText().toString().trim();
         db = FirebaseFirestore.getInstance();
         progressBar.setVisibility(View.VISIBLE);
-        if (email.endsWith("somaiya.edu") && Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+        if (email.endsWith("sakec.ac.in") && Patterns.EMAIL_ADDRESS.matcher(email).matches()){
             db.collection("auth")
                     .whereEqualTo("user",email)
                     .get()

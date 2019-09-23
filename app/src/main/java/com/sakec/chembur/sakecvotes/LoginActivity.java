@@ -130,7 +130,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.web_client_id))
-                .setHostedDomain("somaiya.edu")
+                .setHostedDomain("sakec.ac.in")
                 .requestEmail()
                 .build();
         googleApiClient = new GoogleApiClient.Builder(this)
@@ -171,7 +171,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             idToken = account.getIdToken();
             name = account.getDisplayName();
             email = account.getEmail();
-            if(email.endsWith("@somaiya.edu")) {
+            if(email.endsWith("@sakec.ac.in")) {
                 // you can store user data to SharedPreference
                 AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
                 firebaseAuthWithGoogle(credential);

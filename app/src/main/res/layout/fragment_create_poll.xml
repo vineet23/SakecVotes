@@ -58,7 +58,7 @@
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:src="@drawable/somaiya"
+                    android:src="@drawable/sakec"
                     app:layout_constraintBottom_toBottomOf="@+id/atom"
                     app:layout_constraintEnd_toEndOf="@+id/atom"
                     app:layout_constraintStart_toStartOf="@+id/atom"
