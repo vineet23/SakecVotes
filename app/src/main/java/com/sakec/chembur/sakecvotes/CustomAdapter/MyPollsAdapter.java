@@ -12,7 +12,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.sakec.chembur.sakecvotes.CustomClass.Poll;
-import com.sakec.chembur.sakecvotes.CustomClass.Votes;
 import com.sakec.chembur.sakecvotes.R;
 
 import java.util.ArrayList;
@@ -20,16 +19,13 @@ import java.util.ArrayList;
 public class MyPollsAdapter extends RecyclerView.Adapter<MyPollsAdapter.MyViewHolder> {
 
     ArrayList<Poll> polls;
-    ArrayList<Votes> votes;
 
-    public MyPollsAdapter(ArrayList<Poll> polls,ArrayList<Votes> votes) {
+    public MyPollsAdapter(ArrayList<Poll> polls) {
         this.polls = polls;
-        this.votes = votes;
     }
 
-    public void update(ArrayList<Poll> polls,ArrayList<Votes> votes){
+    public void update(ArrayList<Poll> polls){
         this.polls = polls;
-        this.votes = votes;
         notifyDataSetChanged();
     }
 

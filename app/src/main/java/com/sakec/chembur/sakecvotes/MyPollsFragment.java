@@ -69,7 +69,7 @@ public class MyPollsFragment extends Fragment {
 
         materialCardView.setVisibility(View.GONE);
 
-        adapter = new MyPollsAdapter(polls,votes);
+        adapter = new MyPollsAdapter(polls);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
         adapter.setHasStableIds(true);
@@ -96,8 +96,12 @@ public class MyPollsFragment extends Fragment {
                                             .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                                 @Override
                                                 public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                                    polls.add(documentSnapshot.toObject(Poll.class));
-                                                    adapter.update(polls, votes);
+                                                    if(documentSnapshot.exists()) {
+                                                        polls.add(documentSnapshot.toObject(Poll.class));
+                                                        adapter.update(polls);
+                                                    }
+                                                    if (polls.size()==0)
+                                                        materialCardView.setVisibility(View.VISIBLE);
                                                 }
                                             });
                                 }

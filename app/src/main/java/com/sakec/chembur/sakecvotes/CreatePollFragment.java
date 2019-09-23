@@ -105,7 +105,6 @@ public class CreatePollFragment extends Fragment {
                     progressBar.setVisibility(View.GONE);
                 }
             });
-
             create.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -118,6 +117,12 @@ public class CreatePollFragment extends Fragment {
                 emptyCard.setVisibility(View.VISIBLE);
             }else {
                 createCard.setVisibility(View.VISIBLE);
+                create.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        onCreate();
+                    }
+                });
             }
         }
         return view;
@@ -180,45 +185,65 @@ public class CreatePollFragment extends Fragment {
             return;
         }
         progressBar.setVisibility(View.VISIBLE);
-        // Create a new poll
-        Map<String, Object> poll = new HashMap<>();
-        poll.put("title", title_str);
-        poll.put("descr", desc_str);
-        poll.put("optionO", optionO_str);
-        poll.put("optionT",optionT_str);
-        poll.put("user",MainActivity.email);
-        poll.put("countO",0);
-        poll.put("countT",0);
+        db.collection("auth")
+                .whereEqualTo("user",MainActivity.email)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        if (queryDocumentSnapshots.getDocuments().size()!=0)
+                        {
+                            // Create a new poll
+                            Map<String, Object> poll = new HashMap<>();
+                            poll.put("title", title_str);
+                            poll.put("descr", desc_str);
+                            poll.put("optionO", optionO_str);
+                            poll.put("optionT",optionT_str);
+                            poll.put("user",MainActivity.email);
+                            poll.put("countO",0);
+                            poll.put("countT",0);
 
-        // Add a new document with a generated ID
-        db.collection("polls")
-                .add(poll)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Log.d("create", "DocumentSnapshot added with ID: " + documentReference.getId());
-                        Toast.makeText(getContext(),"Poll Created",Toast.LENGTH_SHORT).show();
-                        progressBar.setVisibility(View.GONE);
+                            // Add a new document with a generated ID
+                            db.collection("polls")
+                                    .add(poll)
+                                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                        @Override
+                                        public void onSuccess(DocumentReference documentReference) {
+                                            Log.d("create", "DocumentSnapshot added with ID: " + documentReference.getId());
+                                            Toast.makeText(getContext(),"Poll Created",Toast.LENGTH_SHORT).show();
+                                            progressBar.setVisibility(View.GONE);
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.w("create", "Error adding document", e);
+                                            Toast.makeText(getContext(),"Failed , Try Again",Toast.LENGTH_SHORT).show();
+                                            progressBar.setVisibility(View.GONE);
+                                        }
+                                    })
+                                    .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<DocumentReference> task) {
+                                            title.setText("");
+                                            descr.setText("");
+                                            optionO.setText("");
+                                            optionT.setText("");
+                                            progressBar.setVisibility(View.GONE);
+                                        }
+                                    });
+                        }else {
+                            Toast.makeText(getContext(),"Open the App Again!",Toast.LENGTH_SHORT).show();
+                            progressBar.setVisibility(View.GONE);
+                        }
                     }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w("create", "Error adding document", e);
-                        Toast.makeText(getContext(),"Failed , Try Again",Toast.LENGTH_SHORT).show();
-                        progressBar.setVisibility(View.GONE);
-                    }
-                })
-                .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentReference> task) {
-                        title.setText("");
-                        descr.setText("");
-                        optionO.setText("");
-                        optionT.setText("");
-                        progressBar.setVisibility(View.GONE);
-                    }
-                });
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getContext(),"Failed , Try Again !",Toast.LENGTH_SHORT).show();
+                progressBar.setVisibility(View.GONE);
+            }
+        });
     }
 
 }

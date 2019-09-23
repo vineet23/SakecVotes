@@ -195,6 +195,7 @@ public class SettingsFragment extends Fragment {
                 }
             });
         }else {
+            progressBar.setVisibility(View.GONE);
             Toast.makeText(getContext(),"Email ID is invalid",Toast.LENGTH_SHORT).show();
         }
     }
@@ -243,6 +244,7 @@ public class SettingsFragment extends Fragment {
                 }
             });
         }else {
+            progressBar.setVisibility(View.GONE);
             Toast.makeText(getContext(), "Invalid Email ID", Toast.LENGTH_SHORT).show();
         }
     }
