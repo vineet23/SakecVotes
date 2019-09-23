@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Sakec Votes</string>
+    <string name="title_one" translatable="false">One</string>
+    <string name="title_two">Two</string>
+    <string name="title_three">Three</string>
+    <string name="title_four">Four</string>
+    <string name="web_client_id">836467114175-iq5fvjqm7nm6gnj3ddpaoab8q2j1i9r5.apps.googleusercontent.com</string>
+
+</resources>
